@@ -11,7 +11,7 @@ public class Course {
 
     private String courseCode;
 
-    private List<Coach> listOfCouches = new ArrayList<>();
+    private List<Coach> listOfCoaches = new ArrayList<>();
 
     private String codeLanguage;
 
@@ -42,11 +42,11 @@ public class Course {
     }
 
     public List<Coach> getListOfCouches() {
-        return listOfCouches;
+        return listOfCoaches;
     }
 
     public void setListOfCouches(List<Coach> listOfCouches) {
-        this.listOfCouches = listOfCouches;
+        this.listOfCoaches = listOfCouches;
     }
 
     public String getCodeLanguage() {
