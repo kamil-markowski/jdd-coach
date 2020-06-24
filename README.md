@@ -1,1 +1,1 @@
-# JJD-Coach
+# jjd-coach
