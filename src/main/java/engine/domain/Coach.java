@@ -1,10 +1,15 @@
 package engine.domain;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "coach")
 public class Coach {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String firstName;
@@ -15,8 +20,16 @@ public class Coach {
 
     private String mobilePhone;
 
+    @ManyToMany
+    @JoinTable(name = "coach_course",
+            joinColumns = @JoinColumn(name = "id_coach", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "id_course", referencedColumnName = "id"))
     private List<Course> courses = new ArrayList<>();
 
+    @ManyToMany
+    @JoinTable(name = "coach_event",
+            joinColumns = @JoinColumn(name = "id_coach", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "id_event", referencedColumnName = "id"))
     private List<EventInLog> eventsInLog = new ArrayList<>();
 
     public Long getId() {

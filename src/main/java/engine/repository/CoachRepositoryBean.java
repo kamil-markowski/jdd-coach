@@ -34,8 +34,8 @@ public class CoachRepositoryBean implements CoachRepository {
             coach1.setLastName("Janka");
             coach1.setEmail("jan@wp.pl");
             coach1.setMobilePhone("123456");
-            coach1.setCourses(courses);
-            coach1.setEventsInLog(eventsInLogs);
+//            coach1.setCourses(courses);
+//            coach1.setEventsInLog(eventsInLogs);
             coaches.add(coach1);
             return coach1;
         }).findFirst();

@@ -1,10 +1,16 @@
 package engine.domain;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "event_name")
 public class EventName {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String eventName;
+    private String nameOfEvent;
 
     public Long getId() {
         return id;
@@ -14,11 +20,11 @@ public class EventName {
         this.id = id;
     }
 
-    public String getEventName() {
-        return eventName;
+    public String getNameOfEvent() {
+        return nameOfEvent;
     }
 
-    public void setEventName(String eventName) {
-        this.eventName = eventName;
+    public void setNameOfEvent(String nameOfEvent) {
+        this.nameOfEvent = nameOfEvent;
     }
 }
