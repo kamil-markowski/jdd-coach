@@ -5,6 +5,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedQueries({
+        @NamedQuery(
+                name = "EventInLog.findAll",
+                query = "SELECT e FROM EventInLog e"
+        )
+})
+
 @Entity
 @Table(name = "event_in_log")
 public class EventInLog {

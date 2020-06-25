@@ -13,9 +13,9 @@ public class TempAppCheck {
     public static void main(String[] args) {
         System.out.println("Hello");
 
-//        System.out.println(
-//        CoachDB.getRepository().get(0).getId()+" "+
-//                CoachDB.getRepository().get(1).getId());
+        System.out.println(
+        CoachDB.getRepository().get(0).getId()+" "+
+                CoachDB.getRepository().get(1).getId());
 
         CoachRepositoryBean test = new CoachRepositoryBean();
         List<Course> courses = new ArrayList<>();
@@ -27,13 +27,11 @@ public class TempAppCheck {
         coach1.setLastName("Janka");
         coach1.setEmail("jan@wp.pl");
         coach1.setMobilePhone("123456");
-//        coach1.setCourses(courses);
-//        coach1.setEventsInLog(eventsInLogs);
+        coach1.setCourses(courses);
+        coach1.setEventsInLog(eventsInLogs);
         test.save(coach1);
-        Boolean deleted = test.deleteById(1L);
 
         test.findById(1L);
-        System.out.println(deleted);
         System.out.println(test.findAll().size());
 
 
