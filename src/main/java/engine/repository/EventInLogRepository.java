@@ -8,7 +8,7 @@ public interface EventInLogRepository {
 
     void save(EventInLog eventInLog);
 
-    Optional<EventInLog> findByUser(Long id);
+    Optional<EventInLog> findByUserId (Long id);
 
     List<EventInLog> findAll();
 }

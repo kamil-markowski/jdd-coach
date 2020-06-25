@@ -23,7 +23,7 @@ public class EventInLogRepositoryBean implements EventInLogRepository{
     }
 
     @Override
-    public Optional<EventInLog> findByUser(Long id) {
+    public Optional<EventInLog> findByUserId(Long id) {
         return Optional.ofNullable(entityManager.find(EventInLog.class, id));
     }
 
