@@ -1,23 +1,33 @@
 package engine.domain;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "event_in_log")
 public class EventInLog {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Coach coach;
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "eventsInLog")
+    private List<Coach> coaches;
 
     private String ip;
 
-    private List<EventName>eventNames = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "event_name")
+    private EventName eventName;
 
     private String coachInfoLink;
 
     private LocalDate eventDate;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
     public Long getId() {
@@ -28,12 +38,12 @@ public class EventInLog {
         this.id = id;
     }
 
-    public Coach getCoach() {
-        return coach;
+    public List<Coach> getCoach() {
+        return coaches;
     }
 
-    public void setCoach(Coach coach) {
-        this.coach = coach;
+    public void setCoach(List<Coach> coaches) {
+        this.coaches = coaches;
     }
 
     public String getIp() {
@@ -44,13 +54,13 @@ public class EventInLog {
         this.ip = ip;
     }
 
-    public List<EventName> getEventNames() {
-        return eventNames;
-    }
-
-    public void setEventNames(List<EventName> eventNames) {
-        this.eventNames = eventNames;
-    }
+//    public List<EventName> getEventNames() {
+//        return eventNames;
+//    }
+//
+//    public void setEventNames(List<EventName> eventNames) {
+//        this.eventNames = eventNames;
+//    }
 
     public String getCoachInfoLink() {
         return coachInfoLink;

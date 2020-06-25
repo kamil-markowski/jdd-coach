@@ -1,16 +1,22 @@
 package engine.domain;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "course")
 public class Course {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String courseName;
 
     private String courseCode;
 
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "courses")
     private List<Coach> listOfCoaches = new ArrayList<>();
 
     private String codeLanguage;

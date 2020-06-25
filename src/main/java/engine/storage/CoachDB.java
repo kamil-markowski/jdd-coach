@@ -28,8 +28,8 @@ public class CoachDB {
         coach1.setLastName("Janka");
         coach1.setEmail("jan@wp.pl");
         coach1.setMobilePhone("123456");
-        coach1.setCourses(courses);
-        coach1.setEventsInLog(eventsInLogs);
+//        coach1.setCourses(courses);
+//        coach1.setEventsInLog(eventsInLogs);
         coachRepository.add(coach1);
 
         Coach coach2 = new Coach();
@@ -38,8 +38,8 @@ public class CoachDB {
         coach2.setLastName("Marko");
         coach2.setEmail("marl@wp.pl");
         coach2.setMobilePhone("654321");
-        coach2.setCourses(courses);
-        coach2.setEventsInLog(eventsInLogs);
+//        coach2.setCourses(courses);
+//        coach2.setEventsInLog(eventsInLogs);
         coachRepository.add(coach2);
     }
 

@@ -1,18 +1,26 @@
 package engine.domain;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "user")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "login_user")
     private String loginUser;
 
+    @Column(name = "email_user")
     private String emailUser;
 
     private String password;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<EventInLog> eventsInLog = new ArrayList<>();
 
     public Long getId() {
