@@ -1,26 +1,36 @@
 package engine.repository;
 
+import engine.domain.Coach;
 import engine.domain.EventInLog;
 
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Stateless
 public class EventInLogRepositoryBean implements EventInLogRepository{
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public void save(EventInLog eventInLog) {
+        entityManager.persist(eventInLog);
     }
 
     @Override
     public Optional<EventInLog> findByUser(Long id) {
-        return findAll().stream()
-                .filter(eventInLog -> eventInLog.getId().equals(id)).findFirst();
+        return Optional.ofNullable(entityManager.find(EventInLog.class, id));
     }
 
     @Override
     public List<EventInLog> findAll() {
-        List<EventInLog>eventInLogs = new ArrayList<>();
-        return eventInLogs;
+        Query query = entityManager
+                .createNamedQuery("EventInLog.findAll");
+        return query.getResultList();
     }
 }

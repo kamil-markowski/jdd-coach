@@ -4,6 +4,13 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedQueries({
+        @NamedQuery(
+                name = "Coach.findAll",
+                query = "SELECT c FROM Coach c"
+        )
+})
+
 @Entity
 @Table(name = "coach")
 public class Coach {

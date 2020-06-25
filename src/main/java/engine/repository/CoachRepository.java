@@ -11,9 +11,9 @@ public interface CoachRepository {
 
     void save(Coach coach);
 
-    Optional<Coach> update(Coach coach, Long id);
+    Coach update(Coach coach);
 
-    Boolean deleteById(Long id);
+    void deleteById(Long id);
 
     List<Coach> findAll();
 }

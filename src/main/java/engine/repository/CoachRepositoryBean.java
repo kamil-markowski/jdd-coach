@@ -3,57 +3,45 @@ package engine.repository;
 import engine.domain.Coach;
 import engine.domain.Course;
 import engine.domain.EventInLog;
-import engine.storage.CoachDB;
 
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Stateless
 public class CoachRepositoryBean implements CoachRepository {
 
-    List<Coach> coaches = new ArrayList<>();
-    List<Course> courses = new ArrayList<>();
-    List<EventInLog> eventsInLogs = new ArrayList<>();
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public Optional<Coach> findById(Long id) {
-        return findAll().stream()
-                .filter(coach -> coach.getId().equals(id)).findFirst();
+        return Optional.ofNullable(entityManager.find(Coach.class, id));
     }
 
     @Override
     public void save(Coach coach) {
-        coaches.add(coach);
+        entityManager.persist(coach);
     }
 
     @Override
-    public Optional<Coach> update(Coach coach, Long id) {
-        return coaches.stream().filter(coach1 -> coach1.getId().equals(id)).map(coach1 -> {
-            coach1.setId(1L);
-            coach1.setFirstName("Jan");
-            coach1.setLastName("Janka");
-            coach1.setEmail("jan@wp.pl");
-            coach1.setMobilePhone("123456");
-//            coach1.setCourses(courses);
-//            coach1.setEventsInLog(eventsInLogs);
-            coaches.add(coach1);
-            return coach1;
-        }).findFirst();
+    public Coach update(Coach coach) {
+       return entityManager.merge(coach);
     }
 
     @Override
-    public Boolean deleteById(Long id) {
-        Optional<Coach> first = coaches.stream()
-                .filter(coach -> coach.getId().equals(id))
-                .findFirst();
-                return first.map(coach -> {
-                    coaches.remove(first);
-                    return true;
-                }).orElseGet(()->false);
+    public void deleteById(Long id) {
+        entityManager.remove(findById(id));
     }
 
     @Override
     public List<Coach> findAll() {
-        return coaches;
+        Query query = entityManager
+                .createNamedQuery("Coach.findAll");
+        return query.getResultList();
     }
 }
