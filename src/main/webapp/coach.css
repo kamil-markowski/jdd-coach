@@ -1,0 +1,81 @@
+.infoShareColor {
+    background-color: #10a8ae;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    border-radius: 15px;
+}
+
+.white-text{
+    color: white;
+}
+
+.navbar-length{
+    max-width: 90%;
+    text-align: center;
+    margin-right: 5%;
+    margin-left: 5%;
+}
+
+.main-div{
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+.input-margin {
+    margin-bottom: 3px;
+    margin-inline: 3px;
+}
+
+.header-margins {
+    margin-top: 60px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.header3-margins {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.editing-btns {
+    margin-right: 5px;
+    background-color: #10a8ae;
+}
+
+.conf-btns {
+    margin-left: 60px;
+}
+
+.btn-backg {
+    background-color: #10a8ae;
+}
+
+.text-centre {
+    text-align: center;
+}
+
+.click {
+    cursor: pointer;
+    padding-bottom: 10px;
+}
+
+footer {
+    margin-top: 150px;
+    border-radius: 20px;
+    bottom:40px;
+    height:50px;
+    padding-top: 5px;
+    width: 90%;
+    text-align: center;
+    margin-right: 5%;
+    margin-left: 5%;
+    background-color: #10a8ae;
+    color: white;
+}
+
+
+
+
+
