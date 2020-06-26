@@ -10,7 +10,7 @@
             <h5>including monitoring of the events in this app.</h5>
             <h5>Select action by pressing one of the buttons below.</h5>
             <br>
-            <h5>In the navbar You have option to see list and statistics.</h5>
+            <h5>In the navbar You have options to see list and statistics.</h5>
         </div>
     </div>
 </div>

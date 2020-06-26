@@ -8,14 +8,14 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link href="coach.css" rel="stylesheet">
+    <link href="../../coach.css" rel="stylesheet">
     <title>Coaches</title>
 </head>
 
 <h3 style="color: red">Logotype and colours used for training</h3>
 
 <nav class="navbar navbar-expand-lg navbar-light navbar-length">
-    <a class="navbar-brand"><img src="logo.svg"></a>
+    <a class="navbar-brand"><img src="../../logo.svg"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
             aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -46,7 +46,7 @@
 <body class="">
 
 <h1 class="header-margins">COACH DATABASE ACCESS</h1>
-
+<form method="post" action="/add-coach" enctype="multipart/form-data">
 <div class="container" id="editiondiv">
 
     <h3 class="header3-margins">Welcome</h3>
@@ -69,11 +69,11 @@
         <button type="button" class="btn btn-info editing-btns" id="addthat">Add</button>
         <button type="button" class="btn btn-info editing-btns" id="edit">Edit</button>
         <button type="button" class="btn btn-info" id="del">Delete</button>
-        <button type="button" class="btn btn-info conf-btns" id="confirm">Confirm</button>
+        <button type="submit" class="btn btn-info conf-btns" id="confirm" a href="/add-coach">Confirm</button>
 
     </div>
 </div>
-
+</form>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -87,7 +87,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
-<script src="coach.js"></script>
+<script src="../../coach.js"></script>
 </body>
 <footer>
     <div class="container click">
