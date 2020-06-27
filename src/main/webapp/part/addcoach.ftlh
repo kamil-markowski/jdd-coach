@@ -4,7 +4,6 @@
     <div class="row justify-content-md-center main-div">
 
         <div class="col-7 infoShareColor">
-<#--            <form method="post" action="/add-coach" enctype="multipart/form-data">-->
 
                 <div class="input-group input-margin">
                     <div class="input-group-prepend">
@@ -33,7 +32,7 @@
                     </div>
                     <input type="text" aria-label="Phone" class="form-control" name="phone">
                 </div>
-<#--            </form>-->
+
         </div>
     </div>
 </div>

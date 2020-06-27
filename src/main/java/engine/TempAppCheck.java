@@ -4,18 +4,12 @@ import engine.domain.Coach;
 import engine.domain.Course;
 import engine.domain.EventInLog;
 import engine.repository.CoachRepositoryBean;
-import engine.storage.CoachDB;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TempAppCheck {
     public static void main(String[] args) {
-        System.out.println("Hello");
-
-        System.out.println(
-        CoachDB.getRepository().get(0).getId()+" "+
-                CoachDB.getRepository().get(1).getId());
 
         CoachRepositoryBean test = new CoachRepositoryBean();
         List<Course> courses = new ArrayList<>();
@@ -33,12 +27,5 @@ public class TempAppCheck {
 
         test.findById(1L);
         System.out.println(test.findAll().size());
-
-
-
-//        coachRepositoryBean.deleteById(2L);
-//        System.out.println(
-//        coachRepositoryBean.findAll());
-
     }
 }
