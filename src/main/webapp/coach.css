@@ -61,6 +61,15 @@
     padding-bottom: 10px;
 }
 
+.td-point {
+    cursor: pointer;
+    padding-bottom: 10px;
+}
+
+.td:hover {
+    background-color: gray;
+}
+
 footer {
     margin-top: 150px;
     border-radius: 20px;
@@ -73,6 +82,24 @@ footer {
     margin-left: 5%;
     background-color: #10a8ae;
     color: white;
+}
+
+.label-name {
+    border-radius: 15px;
+    background-color: lightgray;
+    margin: 3px;
+    padding: 3px;
+}
+
+.result-name {
+    border-radius: 15px;
+    background-color: white;
+    margin: 3px;
+    padding: 3px;
+}
+
+.centre-cont {
+    justify-content: center;
 }
 
 

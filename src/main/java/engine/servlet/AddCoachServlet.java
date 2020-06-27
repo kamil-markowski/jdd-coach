@@ -1,12 +1,14 @@
 package engine.servlet;
 
+import engine.domain.Coach;
 import engine.freemarker.TemplateProvider;
+import engine.service.CoachService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 import javax.inject.Inject;
-import javax.naming.Context;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,23 +18,23 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
-@WebServlet("")
-public class Welcome extends HttpServlet {
+@MultipartConfig
+@WebServlet("/add-coach")
+public class AddCoachServlet extends HttpServlet {
 
-    private final static Logger logger = Logger.getLogger(Welcome.class.getName());
+    private final static Logger logger = Logger.getLogger(AddCoachServlet.class.getName());
 
     @Inject
-    private TemplateProvider templateProvider;
+    TemplateProvider templateProvider;
+
+    @Inject
+    private CoachService coachService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html; charset=UTF-8");
         req.setCharacterEncoding("UTF-8");
         Map<String, Object> dataModel = new HashMap<>();
-
-//        ContextHolder contextHolder = new ContextHolder(req.getSession());
-//        dataModel.put("name", contextHolder.getName());
-//        dataModel.put("role", contextHolder.getRole());
 
         Template template = templateProvider.getTemplate(getServletContext(), "startPage.ftlh");
 
@@ -42,4 +44,21 @@ public class Welcome extends HttpServlet {
             logger.warning("Template not created");
         }
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException, ServletException {
+
+        Coach coach = new Coach();
+        coach.setFirstName(req.getParameter("firstName"));
+        coach.setLastName(req.getParameter("lastName"));
+        coach.setEmail(req.getParameter("email"));
+        coach.setMobilePhone(req.getParameter("phone"));
+
+        coachService.save(coach);
+
+        resp.sendRedirect("/add-coach");
+    }
+
+
 }
