@@ -6,6 +6,7 @@
         <div class="col-7 infoShareColor text-centre white-text">
 
             <h1 class="text-centre">Welcome in Coach editor</h1>
+            <br>
             <h5>This application allowing to add, edit and delete coaches,</h5>
             <h5>including monitoring of the events in this app.</h5>
             <h5>Select action by pressing one of the buttons below.</h5>

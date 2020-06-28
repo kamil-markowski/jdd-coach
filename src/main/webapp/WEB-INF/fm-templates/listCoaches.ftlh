@@ -23,7 +23,7 @@
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="/" id="home">Home<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/" id="home">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Statistics</a>
@@ -46,31 +46,76 @@
 <body class="">
 
 <h1 class="header-margins">COACH DATABASE ACCESS</h1>
-<form id="form1" name="form1" method="post" action="/add-coach" enctype="multipart/form-data">
+<form method="post" action="/add-coach" enctype="multipart/form-data">
+
 <div class="container" id="editiondiv">
 
-    <h3 class="header3-margins">Welcome</h3>
+    <h3 class="header3-margins">list of coaches</h3>
     <div class="row justify-content-md-center main-div">
 
-        <div class="col-7 infoShareColor text-centre white-text">
+        <div class="col-7 infoShareColor" style="width: 100%">
 
-            <h1 class="text-centre">Welcome in Coach editor</h1>
-            <h5>This application allowing to add, edit and delete coaches,</h5>
-            <h5>including monitoring of the events in this app.</h5>
-            <h5>Select action by pressing one of the buttons below.</h5>
-            <br>
-            <h5>In the navbar You have option to see list and statistics.</h5>
+            <h3 style="padding-top: 7px">
+
+                <style>
+                    table {
+                        font-family: arial, sans-serif;
+                        border-collapse: collapse;
+                        border-radius: 15px;
+                        background-color: white;
+                    }
+
+                    td, th {
+                        margin: 3px;
+                        margin-inside: 5px;
+                        text-align: center;
+                        padding: 3px;
+                    }
+
+                    tr:nth-child(even) {
+                        background-color: lightgray;
+                    }
+
+                    tr:nth-child(odd) {
+                        background-color: white;
+                    }
+                </style>
+
+                <table>
+
+                    <tr>
+                        <th>No</th>
+                        <th>Last Name</th>
+                        <th>First Name</th>
+                        <th>E-mail</th>
+                        <th>Mobile phone</th>
+                    </tr>
+
+                    <#if list??>
+                        <#list list as coach>
+                            <tr class="td td-point" onClick="location.href='/single-view?coach=${coach.id}';">
+                                <td>${coach?counter}</td>
+                                <td>${coach.lastName}</td>
+                                <td>${coach.firstName}</td>
+                                <td>${coach.email}</td>
+                                <td>${coach.mobilePhone}</td>
+                            </tr>
+                        </#list>
+                    </#if>
+
+                </table>
+            </h3>
+
         </div>
     </div>
 </div>
 
 <div class="row justify-content-md-center main-div" id="buttons">
     <div class="row">
-        <button type="button" class="btn btn-info editing-btns" id="addthat">Add</button>
+        <button type="button" class="btn btn-info editing-btns" id="addthat" a href="/add-coach">Add</button>
         <button type="submit" class="btn btn-info editing-btns" id="edit" disabled>Edit</button>
         <button type="submit" class="btn btn-info" id="del" disabled>Delete</button>
-        <button type="submit" class="btn btn-info conf-btns" id="confirm" disabled>Confirm</button>
-        <button type="submit" class="btn btn-warning conf-btns" id="test">Test Load Db</button>
+        <button type="submit" class="btn btn-info conf-btns" id="confirm" a href="/add-coach" disabled>Confirm</button>
 
     </div>
 </div>
@@ -93,10 +138,10 @@
 <footer>
     <div class="container click">
         <i style="color: white; text-align: center">
-<!--            <#assign aDateTime = .now>-->
-<!--            <#assign aDate = aDateTime?date>-->
-           Copyrights &copy; All reserved
-<!--            ${aDate?string.yyyy}.-->
+            <#--            <!--            <#assign aDateTime = .now>&ndash;&gt;-->
+            <#--            <!--            <#assign aDate = aDateTime?date>&ndash;&gt;-->
+            Copyrights &copy; All reserved
+            <#--            <!--            ${aDate?string.yyyy}.&ndash;&gt;-->
         </i>
     </div>
 

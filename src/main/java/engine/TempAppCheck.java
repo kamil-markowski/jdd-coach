@@ -4,14 +4,24 @@ import engine.domain.Coach;
 import engine.domain.Course;
 import engine.domain.EventInLog;
 import engine.repository.CoachRepositoryBean;
+import engine.service.CoachService;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TempAppCheck {
+
+//    @Inject
+//    CoachService coachService;
+//
+//    @Inject
+//    CoachRepositoryBean coachRepositoryBean;
+
     public static void main(String[] args) {
 
-        CoachRepositoryBean test = new CoachRepositoryBean();
+
+
         List<Course> courses = new ArrayList<>();
         List<EventInLog> eventsInLogs = new ArrayList<>();
 
@@ -23,9 +33,7 @@ public class TempAppCheck {
         coach1.setMobilePhone("123456");
         coach1.setCourses(courses);
         coach1.setEventsInLog(eventsInLogs);
-        test.save(coach1);
+        System.out.println(("done"));
 
-        test.findById(1L);
-        System.out.println(test.findAll().size());
     }
 }
