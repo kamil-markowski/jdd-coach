@@ -109,7 +109,8 @@
             <button type="button" class="btn btn-info editing-btns" id="addthat" disabled>Add</button>
             <button type="submit" class="btn btn-info editing-btns" id="edit"
                     formmethod="get" onClick="location.href='/edit-coach?coach=${coach.id}';">Edit</button>
-            <button type="submit" class="btn btn-info" id="del" formmethod="delete">Delete</button>
+            <button type="submit" class="btn btn-info" id="del"
+                    formmethod="get" onClick="location.href='/delete-coach?coach=${coach.id}';">Delete</button>
             <button type="submit" class="btn btn-info conf-btns" id="confirm" disabled>Confirm</button>
 
         </div>
