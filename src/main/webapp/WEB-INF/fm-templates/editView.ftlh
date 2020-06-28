@@ -23,7 +23,7 @@
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#" id="home">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/" id="home">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Statistics</a>
@@ -46,11 +46,11 @@
 <body class="">
 
 <h1 class="header-margins">COACH DATABASE ACCESS</h1>
-<form method="post" action="/add-coach" enctype="multipart/form-data">
+<form method="post" action="/edit-coach?coach=${coach.id}" enctype="multipart/form-data">
 
     <div class="container" id="editiondiv">
 
-        <h3 class="header3-margins">coach's data</h3>
+        <h3 class="header3-margins">edit coach's data</h3>
         <div class="row justify-content-md-center main-div">
 
             <div class="col-7 infoShareColor text-centre" style="width: 100%">
@@ -65,37 +65,33 @@
                             ${coach.id}
                         </div>
                     </div>
+
                     <div class="row centre-cont">
                         <div class="col-4 label-name">
                             Last Name
                         </div>
-                        <div class="col-7 result-name">
-                            ${coach.lastName}
-                        </div>
+                        <input class="col-7 result-name inp-border" name="lastName" placeholder="${coach.lastName}">
                     </div>
+
                     <div class="row centre-cont">
                         <div class="col-4 label-name">
                             First Name
                         </div>
-                        <div class="col-7 result-name">
-                            ${coach.firstName}
-                        </div>
+                        <input class="col-7 result-name inp-border" name="firstName"  placeholder="${coach.firstName}">
                     </div>
+
                     <div class="row centre-cont">
                         <div class="col-4 label-name">
                             E-mail
                         </div>
-                        <div class="col-7 result-name">
-                            ${coach.email}
-                        </div>
+                        <input class="col-7 result-name inp-border" name="email" placeholder=" ${coach.email}">
                     </div>
+
                     <div class="row centre-cont">
                         <div class="col-4 label-name">
                             Mobile Phone
                         </div>
-                        <div class="col-7 result-name">
-                            ${coach.mobilePhone}
-                        </div>
+                        <input class="col-7 result-name inp-border" name="mobilePhone" placeholder="${coach.mobilePhone}">
                     </div>
 
 
@@ -106,11 +102,10 @@
 
     <div class="row justify-content-md-center main-div">
         <div class="row">
-            <button type="button" class="btn btn-info editing-btns" id="addthat" a href="/add-coach">Add</button>
-            <button type="button" class="btn btn-info editing-btns" id="edit">Edit</button>
-            <button type="button" class="btn btn-info" id="del">Delete</button>
-            <button type="submit" class="btn btn-info conf-btns" id="confirm" a href="/add-coach">Confirm</button>
-
+            <button type="button" class="btn btn-info editing-btns" id="addthat" disabled>Add</button>
+            <button type="submit" class="btn btn-info editing-btns" id="edit" disabled>Edit</button>
+            <button type="submit" class="btn btn-info" id="del" disabled>Delete</button>
+            <button type="submit" class="btn btn-info conf-btns" id="confirmEdit">Confirm</button>
         </div>
     </div>
 </form>

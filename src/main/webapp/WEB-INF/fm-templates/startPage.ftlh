@@ -23,7 +23,7 @@
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#" id="home">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/" id="home">Home<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Statistics</a>
@@ -46,7 +46,7 @@
 <body class="">
 
 <h1 class="header-margins">COACH DATABASE ACCESS</h1>
-<form method="post" action="/add-coach" enctype="multipart/form-data">
+<form id="form1" name="form1" method="post" action="/add-coach" enctype="multipart/form-data">
 <div class="container" id="editiondiv">
 
     <h3 class="header3-margins">Welcome</h3>
@@ -64,12 +64,13 @@
     </div>
 </div>
 
-<div class="row justify-content-md-center main-div">
+<div class="row justify-content-md-center main-div" id="buttons">
     <div class="row">
         <button type="button" class="btn btn-info editing-btns" id="addthat">Add</button>
-        <button type="button" class="btn btn-info editing-btns" id="edit">Edit</button>
-        <button type="button" class="btn btn-info" id="del">Delete</button>
-        <button type="submit" class="btn btn-info conf-btns" id="confirm" a href="/add-coach">Confirm</button>
+        <button type="submit" class="btn btn-info editing-btns" id="edit" disabled>Edit</button>
+        <button type="submit" class="btn btn-info" id="del" disabled>Delete</button>
+        <button type="submit" class="btn btn-info conf-btns" id="confirm" disabled>Confirm</button>
+        <button type="submit" class="btn btn-warning conf-btns" id="test">Test Load Db</button>
 
     </div>
 </div>

@@ -23,7 +23,7 @@
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#" id="home">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/" id="home">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Statistics</a>
@@ -55,7 +55,7 @@
 
         <div class="col-7 infoShareColor" style="width: 100%">
 
-            <h3 style="padding-left: 10px">
+            <h3 style="padding-top: 7px">
 
                 <style>
                     table {
@@ -66,7 +66,6 @@
                     }
 
                     td, th {
-                        border-radius: 10px;
                         margin: 3px;
                         margin-inside: 5px;
                         text-align: center;
@@ -83,6 +82,7 @@
                 </style>
 
                 <table>
+
                     <tr>
                         <th>No</th>
                         <th>Last Name</th>
@@ -92,7 +92,6 @@
                     </tr>
 
                     <#if list??>
-
                         <#list list as coach>
                             <tr class="td td-point" onClick="location.href='/single-view?coach=${coach.id}';">
                                 <td>${coach?counter}</td>
@@ -100,11 +99,10 @@
                                 <td>${coach.firstName}</td>
                                 <td>${coach.email}</td>
                                 <td>${coach.mobilePhone}</td>
-
                             </tr>
-<#--                            <#sep><br/></#sep>-->
                         </#list>
                     </#if>
+
                 </table>
             </h3>
 
@@ -112,12 +110,12 @@
     </div>
 </div>
 
-<div class="row justify-content-md-center main-div">
+<div class="row justify-content-md-center main-div" id="buttons">
     <div class="row">
         <button type="button" class="btn btn-info editing-btns" id="addthat" a href="/add-coach">Add</button>
-        <button type="button" class="btn btn-info editing-btns" id="edit">Edit</button>
-        <button type="button" class="btn btn-info" id="del">Delete</button>
-        <button type="submit" class="btn btn-info conf-btns" id="confirm" a href="/add-coach">Confirm</button>
+        <button type="submit" class="btn btn-info editing-btns" id="edit" disabled>Edit</button>
+        <button type="submit" class="btn btn-info" id="del" disabled>Delete</button>
+        <button type="submit" class="btn btn-info conf-btns" id="confirm" a href="/add-coach" disabled>Confirm</button>
 
     </div>
 </div>

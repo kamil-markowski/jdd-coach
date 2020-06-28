@@ -8,6 +8,7 @@ import freemarker.template.TemplateException;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,16 +18,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
-@WebServlet("/single-view")
-public class SingleViewCoachServlet extends HttpServlet {
+@MultipartConfig
+@WebServlet("/edit-coach")
+public class EditCoachServlet extends HttpServlet {
 
-    private final static Logger logger = Logger.getLogger(SingleViewCoachServlet.class.getName());
-
-    @Inject
-    CoachService coachService;
+    private final static Logger logger = Logger.getLogger(EditCoachServlet.class.getName());
 
     @Inject
     TemplateProvider templateProvider;
+
+    @Inject
+    private CoachService coachService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -49,7 +51,7 @@ public class SingleViewCoachServlet extends HttpServlet {
 //            statisticsService.addToStatistics(foundDrinkById);
         }
 
-        Template template = templateProvider.getTemplate(getServletContext(), "singleView.ftlh");
+        Template template = templateProvider.getTemplate(getServletContext(), "editView.ftlh");
         try {
             template.process(dataModel, resp.getWriter());
         } catch (TemplateException e) {
@@ -57,4 +59,28 @@ public class SingleViewCoachServlet extends HttpServlet {
         }
 
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException, ServletException {
+
+        resp.setContentType("text/html; charset=UTF-8");
+        req.setCharacterEncoding("UTF-8");
+        String idParam = req.getParameter("coach");
+        Long coachId = Long.parseLong(idParam);
+
+        Coach editedCoach = new Coach();
+        editedCoach = coachService.findById(coachId);
+
+        editedCoach.setLastName(req.getParameter("lastName"));
+        editedCoach.setFirstName(req.getParameter("firstName"));
+        editedCoach.setEmail(req.getParameter("email"));
+        editedCoach.setMobilePhone(req.getParameter("mobilePhone"));
+
+        coachService.update(editedCoach);
+
+        resp.sendRedirect("/list-coach");
+    }
+
+
 }

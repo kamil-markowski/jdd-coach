@@ -23,7 +23,7 @@
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#" id="home">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/" id="home">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Statistics</a>
@@ -106,10 +106,11 @@
 
     <div class="row justify-content-md-center main-div">
         <div class="row">
-            <button type="button" class="btn btn-info editing-btns" id="addthat" a href="/add-coach">Add</button>
-            <button type="button" class="btn btn-info editing-btns" id="edit">Edit</button>
-            <button type="button" class="btn btn-info" id="del">Delete</button>
-            <button type="submit" class="btn btn-info conf-btns" id="confirm" a href="/add-coach">Confirm</button>
+            <button type="button" class="btn btn-info editing-btns" id="addthat" disabled>Add</button>
+            <button type="submit" class="btn btn-info editing-btns" id="edit"
+                    formmethod="get" onClick="location.href='/edit-coach?coach=${coach.id}';">Edit</button>
+            <button type="submit" class="btn btn-info" id="del" formmethod="delete">Delete</button>
+            <button type="submit" class="btn btn-info conf-btns" id="confirm" disabled>Confirm</button>
 
         </div>
     </div>
