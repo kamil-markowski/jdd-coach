@@ -39,6 +39,8 @@ public class Coach {
             inverseJoinColumns = @JoinColumn(name = "id_event", referencedColumnName = "id"))
     private List<EventInLog> eventsInLog = new ArrayList<>();
 
+
+
     public Long getId() {
         return id;
     }

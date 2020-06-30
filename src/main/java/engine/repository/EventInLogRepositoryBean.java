@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-//@Transactional
-
 @Stateless
 public class EventInLogRepositoryBean implements EventInLogRepository{
 

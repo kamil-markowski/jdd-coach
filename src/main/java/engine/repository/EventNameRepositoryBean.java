@@ -9,9 +9,7 @@ import javax.persistence.Query;
 import java.util.List;
 
 @Stateless
-public class EventNameRepositoryBean
-//        implements EventNameRepository
-{
+public class EventNameRepositoryBean {
 
     @PersistenceContext
     private EntityManager entityManager;

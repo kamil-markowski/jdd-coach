@@ -1,4 +1,4 @@
-package engine.domain.mapper;
+package engine.mapper;
 
 import engine.domain.EventName;
 import engine.service.EventNameService;

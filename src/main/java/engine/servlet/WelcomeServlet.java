@@ -3,14 +3,15 @@ package engine.servlet;
 import engine.domain.EventInLog;
 import engine.domain.EventName;
 import engine.domain.User;
-import engine.domain.mapper.EventNameMapper;
 import engine.freemarker.TemplateProvider;
+import engine.mapper.EventNameMapper;
+import engine.mapper.UserMapper;
 import engine.repository.EventInLogRepository;
+import engine.service.UserService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 import javax.inject.Inject;
-//import javax.naming.Context;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -22,6 +23,8 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
+
+//import javax.naming.Context;
 
 @WebServlet("")
 public class WelcomeServlet extends HttpServlet {
@@ -39,6 +42,9 @@ public class WelcomeServlet extends HttpServlet {
     @Inject
     private EventNameMapper eventNameMapper;
 
+    @Inject
+    private UserMapper userMapper;
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -46,20 +52,22 @@ public class WelcomeServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         Map<String, Object> dataModel = new HashMap<>();
 
-        String ipGuest = getClientIpAddress(req);
+//        String ipGuest = getClientIpAddress(req);
 
         String ipAddress = req.getHeader("X-FORWARDED-FOR");
         if (ipAddress == null) {
             ipAddress = req.getRemoteAddr();
         }
 
-        Cookie userCookie=new Cookie("userIp",ipGuest);
+        Cookie userCookie=new Cookie("userIp",ipAddress);
+        userCookie.setMaxAge(30*24*60*60);
         resp.addCookie(userCookie);
 
         LocalDateTime eventTime = LocalDateTime.now();
 
         User user = new User();
-        user.setIp(ipGuest);
+        user.setIp(ipAddress);
+        user = userMapper.toEntity(user);
 
         EventName eventName = new EventName();
         eventName.setNameOfEvent(eventNameString);
@@ -71,42 +79,15 @@ public class WelcomeServlet extends HttpServlet {
         eventInLog1.setIp(ipAddress);
         eventInLog1.setEventName(eventName);
         eventInLog1.setEventDate(eventTime);
+        eventInLog1.setUser(user);
         eventInLogRepository.save(eventInLog1);
 
-
-
-
-//        eventInLog.setUser(user);
-//mykong
-//        private Map<String, String> getRequestHeadersInMap(HttpServletRequest request) {
-//
-//            Map<String, String> result = new HashMap<>();
-//
-//            Enumeration headerNames = request.getHeaderNames();
-//            while (headerNames.hasMoreElements()) {
-//                String key = (String) headerNames.nextElement();
-//                String value = request.getHeader(key);
-//                result.put(key, value);
-//            }
-//
-//            return result;
-//        }
-
-//        ContextHolder contextHolder = new ContextHolder(req.getSession());
-//        dataModel.put("name", contextHolder.getName());
-//        dataModel.put("role", contextHolder.getRole());
-
         Template template = templateProvider.getTemplate(getServletContext(), "startPage.ftlh");
-
         try {
             template.process(dataModel, resp.getWriter());
-
-
         } catch (TemplateException e) {
             logger.warning("Template not created");
         }
-
-
     }
 
 
@@ -134,3 +115,27 @@ public class WelcomeServlet extends HttpServlet {
         return req.getRemoteAddr();
     }
 }
+
+
+
+
+//        eventInLog.setUser(user);
+//mykong
+//        private Map<String, String> getRequestHeadersInMap(HttpServletRequest request) {
+//
+//            Map<String, String> result = new HashMap<>();
+//
+//            Enumeration headerNames = request.getHeaderNames();
+//            while (headerNames.hasMoreElements()) {
+//                String key = (String) headerNames.nextElement();
+//                String value = request.getHeader(key);
+//                result.put(key, value);
+//            }
+//
+//            return result;
+//        }
+
+//        ContextHolder contextHolder = new ContextHolder(req.getSession());
+//        dataModel.put("name", contextHolder.getName());
+//        dataModel.put("role", contextHolder.getRole());
+

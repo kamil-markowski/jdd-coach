@@ -1,8 +1,16 @@
 package engine.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+
+@NamedQueries({
+        @NamedQuery(
+                name = "User.getByIp",
+                query = "SELECT u FROM User u where u.ip= :ip"
+        )
+})
 
 @Entity
 @Table(name = "user")
@@ -12,18 +20,15 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @Column(name = "login_user")
-//    private String loginUser;
-//
-//    @Column(name = "email_user")
-//    private String emailUser;
-
-//    private String password;
-
+    @NotNull
     private String ip;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @NotNull
     private List<EventInLog> eventsInLog = new ArrayList<>();
+
+
+
 
     public Long getId() {
         return id;
@@ -41,6 +46,26 @@ public class User {
         this.ip = ip;
     }
 
+
+    public List<EventInLog> getEventsInLog() {
+        return eventsInLog;
+    }
+
+    public void setEventsInLog(List<EventInLog> eventsInLog) {
+        this.eventsInLog = eventsInLog;
+    }
+
+}
+
+
+
+    //    @Column(name = "login_user")
+//    private String loginUser;
+//
+//    @Column(name = "email_user")
+//    private String emailUser;
+
+//    private String password;
 
 //    public String getLoginUser() {
 //        return loginUser;
@@ -66,11 +91,3 @@ public class User {
 //        this.password = password;
 //    }
 
-    public List<EventInLog> getEventsInLog() {
-        return eventsInLog;
-    }
-
-    public void setEventsInLog(List<EventInLog> eventsInLog) {
-        this.eventsInLog = eventsInLog;
-    }
-}

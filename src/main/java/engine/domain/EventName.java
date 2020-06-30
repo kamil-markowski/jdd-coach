@@ -23,10 +23,7 @@ public class EventName {
     @NotNull
     private String nameOfEvent;
 
-    @OneToMany(mappedBy = "eventName"
-            , cascade = {CascadeType.ALL}
-            ,fetch = FetchType.LAZY
-    )
+    @OneToMany(mappedBy = "eventName", cascade = {CascadeType.ALL},fetch = FetchType.LAZY)
     @NotNull
     private List<EventInLog> eventsInLog = new ArrayList<>();
 
