@@ -2,6 +2,7 @@ package engine.domain;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class EventInLog {
 
     private String coachInfoLink;
 
-    private LocalDate eventDate;
+    private LocalDateTime eventDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -77,11 +78,11 @@ public class EventInLog {
         this.coachInfoLink = coachInfoLink;
     }
 
-    public LocalDate getEventDate() {
+    public LocalDateTime getEventDate() {
         return eventDate;
     }
 
-    public void setEventDate(LocalDate eventDate) {
+    public void setEventDate(LocalDateTime eventDate) {
         this.eventDate = eventDate;
     }
 

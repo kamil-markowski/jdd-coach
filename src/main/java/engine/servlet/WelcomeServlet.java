@@ -1,6 +1,12 @@
 package engine.servlet;
 
+import engine.domain.EventInLog;
+import engine.domain.EventName;
+import engine.domain.User;
+import engine.domain.mapper.EventNameMapper;
 import engine.freemarker.TemplateProvider;
+import engine.repository.EventInLogRepository;
+import engine.repository.EventNameRepository;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -24,8 +30,17 @@ public class WelcomeServlet extends HttpServlet {
 
     private final static Logger logger = Logger.getLogger(WelcomeServlet.class.getName());
 
+    private final static String eventNameString = "open welcome page";
+
     @Inject
     private TemplateProvider templateProvider;
+
+    @Inject
+    private EventInLogRepository eventInLogRepository;
+
+    @Inject
+    private EventNameMapper eventNameMapper;
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -44,6 +59,21 @@ public class WelcomeServlet extends HttpServlet {
         resp.addCookie(userCookie);
 
         LocalDateTime eventTime = LocalDateTime.now();
+
+        User user = new User();
+        user.setIp(ipGuest);
+
+        EventName eventName = new EventName();
+        eventName.setNameOfEvent(eventNameString);
+        eventNameMapper.toEntity(eventName);
+
+        EventInLog eventInLog1 = new EventInLog();
+        eventInLog1.setCoach(null);
+        eventInLog1.setCoachInfoLink(null);
+        eventInLog1.setIp(ipAddress);
+        eventInLog1.setEventDate(eventTime);
+
+//        eventInLog.setUser(user);
 
 //mykong
 //        private Map<String, String> getRequestHeadersInMap(HttpServletRequest request) {
@@ -68,10 +98,16 @@ public class WelcomeServlet extends HttpServlet {
 
         try {
             template.process(dataModel, resp.getWriter());
+            eventInLogRepository.save(eventInLog1);
+
         } catch (TemplateException e) {
             logger.warning("Template not created");
         }
+
+
     }
+
+
 
     public static String[] IP_HEADER_CANDIDATES = {
             "X-Forwarded-For",

@@ -2,6 +2,13 @@ package engine.domain;
 
 import javax.persistence.*;
 
+@NamedQueries({
+        @NamedQuery(
+                name = "EventName.getByName",
+                query = "SELECT e FROM EventName e where e.nameOfEvent= :name"
+        )
+})
+
 @Entity
 @Table(name = "event_name")
 public class EventName {
