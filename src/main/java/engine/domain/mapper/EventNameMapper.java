@@ -13,7 +13,7 @@ public class EventNameMapper {
     private EventNameService eventNameService;
 
     public EventName toEntity(EventName eventName) {
-        eventName = eventNameService.getOrCreate(eventName.getNameOfEvent());
-        return eventName;
+         EventName addedEventName = eventNameService.getOrCreate(eventName.getNameOfEvent());
+        return addedEventName;
     }
 }

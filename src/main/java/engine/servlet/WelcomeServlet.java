@@ -6,7 +6,6 @@ import engine.domain.User;
 import engine.domain.mapper.EventNameMapper;
 import engine.freemarker.TemplateProvider;
 import engine.repository.EventInLogRepository;
-import engine.repository.EventNameRepository;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -19,7 +18,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -65,16 +63,20 @@ public class WelcomeServlet extends HttpServlet {
 
         EventName eventName = new EventName();
         eventName.setNameOfEvent(eventNameString);
-        eventNameMapper.toEntity(eventName);
+        eventName = eventNameMapper.toEntity(eventName);
 
         EventInLog eventInLog1 = new EventInLog();
         eventInLog1.setCoach(null);
-        eventInLog1.setCoachInfoLink(null);
+        eventInLog1.setCoachInfoLink("welcomePage no action on coach done");
         eventInLog1.setIp(ipAddress);
+        eventInLog1.setEventName(eventName);
         eventInLog1.setEventDate(eventTime);
+        eventInLogRepository.save(eventInLog1);
+
+
+
 
 //        eventInLog.setUser(user);
-
 //mykong
 //        private Map<String, String> getRequestHeadersInMap(HttpServletRequest request) {
 //
@@ -98,7 +100,7 @@ public class WelcomeServlet extends HttpServlet {
 
         try {
             template.process(dataModel, resp.getWriter());
-            eventInLogRepository.save(eventInLog1);
+
 
         } catch (TemplateException e) {
             logger.warning("Template not created");

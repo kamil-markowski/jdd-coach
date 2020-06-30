@@ -1,6 +1,9 @@
 package engine.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @NamedQueries({
         @NamedQuery(
@@ -17,7 +20,17 @@ public class EventName {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     private String nameOfEvent;
+
+    @OneToMany(mappedBy = "eventName"
+            , cascade = {CascadeType.ALL}
+            ,fetch = FetchType.LAZY
+    )
+    @NotNull
+    private List<EventInLog> eventsInLog = new ArrayList<>();
+
+
 
     public Long getId() {
         return id;
@@ -33,5 +46,13 @@ public class EventName {
 
     public void setNameOfEvent(String nameOfEvent) {
         this.nameOfEvent = nameOfEvent;
+    }
+
+    public List<EventInLog> getEventsInLog() {
+        return eventsInLog;
+    }
+
+    public void setEventsInLog(List<EventInLog> eventsInLog) {
+        this.eventsInLog = eventsInLog;
     }
 }

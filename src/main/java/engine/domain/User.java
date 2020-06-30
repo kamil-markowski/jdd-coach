@@ -40,6 +40,8 @@ public class User {
     public void setIp(String ip) {
         this.ip = ip;
     }
+
+
 //    public String getLoginUser() {
 //        return loginUser;
 //    }

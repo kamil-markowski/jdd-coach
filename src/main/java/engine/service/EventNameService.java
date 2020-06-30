@@ -1,14 +1,10 @@
 package engine.service;
 
 import engine.domain.EventName;
-import engine.repository.EventNameRepository;
 import engine.repository.EventNameRepositoryBean;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import java.util.List;
 import java.util.logging.Logger;
 
 @Stateless
