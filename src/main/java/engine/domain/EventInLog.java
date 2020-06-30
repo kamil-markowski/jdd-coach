@@ -1,8 +1,8 @@
 package engine.domain;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @NamedQueries({
@@ -21,21 +21,31 @@ public class EventInLog {
     private Long id;
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "eventsInLog")
+//    @NotNull
     private List<Coach> coaches;
 
+    @NotNull
     private String ip;
 
     @ManyToOne
-    @JoinColumn(name = "event_name")
+    @JoinColumn(name = "event_name_id")
+//    @NotNull
     private EventName eventName;
 
+//    @NotNull
     private String coachInfoLink;
 
-    private LocalDate eventDate;
+    @NotNull
+    private LocalDateTime eventDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+//    @NotNull
     private User user;
+
+
+
+
 
     public Long getId() {
         return id;
@@ -61,13 +71,13 @@ public class EventInLog {
         this.ip = ip;
     }
 
-//    public List<EventName> getEventNames() {
-//        return eventNames;
-//    }
-//
-//    public void setEventNames(List<EventName> eventNames) {
-//        this.eventNames = eventNames;
-//    }
+    public EventName getEventName() {
+        return eventName;
+    }
+
+    public void setEventName(EventName eventName) {
+        this.eventName = eventName;
+    }
 
     public String getCoachInfoLink() {
         return coachInfoLink;
@@ -77,11 +87,11 @@ public class EventInLog {
         this.coachInfoLink = coachInfoLink;
     }
 
-    public LocalDate getEventDate() {
+    public LocalDateTime getEventDate() {
         return eventDate;
     }
 
-    public void setEventDate(LocalDate eventDate) {
+    public void setEventDate(LocalDateTime eventDate) {
         this.eventDate = eventDate;
     }
 
