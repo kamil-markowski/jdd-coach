@@ -9,6 +9,7 @@ import engine.mapper.EventNameMapper;
 import engine.mapper.UserMapper;
 import engine.repository.EventInLogRepository;
 import engine.service.CoachService;
+import engine.validator.ValidatorInput;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -33,6 +34,7 @@ public class EditCoachServlet extends HttpServlet {
 
     private final static String eventNameString = "coach edited";
 
+    private final static String wrongInp = "wrong input, try again";
 
     @Inject
     TemplateProvider templateProvider;
@@ -48,6 +50,9 @@ public class EditCoachServlet extends HttpServlet {
 
     @Inject
     private UserMapper userMapper;
+
+    @Inject
+    ValidatorInput validatorInput;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -67,7 +72,6 @@ public class EditCoachServlet extends HttpServlet {
                 dataModel.put("errorMessage", "Drink not found.\n");
             }
             dataModel.put("coach", foundCoach);
-//            statisticsService.addToStatistics(foundDrinkById);
         }
 
         Template template = templateProvider.getTemplate(getServletContext(), "editView.ftlh");
@@ -83,46 +87,91 @@ public class EditCoachServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws IOException, ServletException {
 
-        resp.setContentType("text/html; charset=UTF-8");
-        req.setCharacterEncoding("UTF-8");
-        String idParam = req.getParameter("coach");
-        Long coachId = Long.parseLong(idParam);
+        int check = 0;
 
-        Coach editedCoach = new Coach();
-        editedCoach = coachService.findById(coachId);
-
-        editedCoach.setLastName(req.getParameter("lastName"));
-        editedCoach.setFirstName(req.getParameter("firstName"));
-        editedCoach.setEmail(req.getParameter("email"));
-        editedCoach.setMobilePhone(req.getParameter("mobilePhone"));
-
-        coachService.update(editedCoach);
-
-        String ipAddress = req.getHeader("X-FORWARDED-FOR");
-        if (ipAddress == null) {
-            ipAddress = req.getRemoteAddr();
+        String firstNameReq = req.getParameter("firstName");
+        if (firstNameReq == null || firstNameReq.isEmpty() || !validatorInput.validateSpecialChars(firstNameReq)) {
+            firstNameReq = wrongInp;
+            check += 1;
         }
 
-        LocalDateTime eventTime = LocalDateTime.now();
+        String lastNameReq = req.getParameter("lastName");
+        if (lastNameReq == null || lastNameReq.isEmpty() || !validatorInput.validateSpecialChars(lastNameReq)) {
+            lastNameReq = wrongInp;
+            check += 1;
+        }
 
-        User user = new User();
-        user.setIp(ipAddress);
-        user = userMapper.toEntity(user);
+        String phoneReq = req.getParameter("mobilePhone");
+        if (phoneReq == null || phoneReq.isEmpty() || !validatorInput.validateMobilePhone(phoneReq)) {
+            phoneReq = wrongInp;
+            check += 1;
+        }
 
-        EventName eventName = new EventName();
-        eventName.setNameOfEvent(eventNameString);
-        eventName = eventNameMapper.toEntity(eventName);
+        String emailReq = req.getParameter("email");
+        if (emailReq == null || emailReq.isEmpty() || !validatorInput.validateEmail(emailReq)) {
+            emailReq = wrongInp;
+            check += 1;
+        }
 
-        EventInLog eventInLog1 = new EventInLog();
-        eventInLog1.setCoach(null);
-        eventInLog1.setCoachInfoLink("/single-view?coach="+editedCoach.getId());
-        eventInLog1.setIp(ipAddress);
-        eventInLog1.setEventName(eventName);
-        eventInLog1.setEventDate(eventTime);
-        eventInLog1.setUser(user);
-        eventInLogRepository.save(eventInLog1);
+        resp.setContentType("text/html; charset=UTF-8");
+        req.setCharacterEncoding("UTF-8");
 
-        resp.sendRedirect("/list-coach");
+        if (check != 0) {
+            Map<String, Object> dataModel = new HashMap<>();
+            dataModel.put("lastName", lastNameReq);
+            dataModel.put("firstName", firstNameReq);
+            dataModel.put("email", emailReq);
+            dataModel.put("mobilePhone", phoneReq);
+
+            Template template = templateProvider.getTemplate(getServletContext(), "wrongInput.ftlh");
+
+            try {
+                template.process(dataModel, resp.getWriter());
+            } catch (TemplateException e) {
+                logger.warning("Template not created");
+            }
+
+        } else {
+
+            String idParam = req.getParameter("coach");
+            Long coachId = Long.parseLong(idParam);
+
+            Coach editedCoach = new Coach();
+            editedCoach = coachService.findById(coachId);
+
+            editedCoach.setLastName(req.getParameter("lastName"));
+            editedCoach.setFirstName(req.getParameter("firstName"));
+            editedCoach.setEmail(req.getParameter("email"));
+            editedCoach.setMobilePhone(req.getParameter("mobilePhone"));
+
+            coachService.update(editedCoach);
+
+            String ipAddress = req.getHeader("X-FORWARDED-FOR");
+            if (ipAddress == null) {
+                ipAddress = req.getRemoteAddr();
+            }
+
+            LocalDateTime eventTime = LocalDateTime.now();
+
+            User user = new User();
+            user.setIp(ipAddress);
+            user = userMapper.toEntity(user);
+
+            EventName eventName = new EventName();
+            eventName.setNameOfEvent(eventNameString);
+            eventName = eventNameMapper.toEntity(eventName);
+
+            EventInLog eventInLog1 = new EventInLog();
+            eventInLog1.setCoach(null);
+            eventInLog1.setCoachInfoLink("/single-view?coach=" + editedCoach.getId());
+            eventInLog1.setIp(ipAddress);
+            eventInLog1.setEventName(eventName);
+            eventInLog1.setEventDate(eventTime);
+            eventInLog1.setUser(user);
+            eventInLogRepository.save(eventInLog1);
+
+            resp.sendRedirect("/list-coach");
+        }
     }
 
     public static String[] IP_HEADER_CANDIDATES = {
@@ -136,7 +185,7 @@ public class EditCoachServlet extends HttpServlet {
             "HTTP_FORWARDED_FOR",
             "HTTP_FORWARDED",
             "HTTP_VIA",
-            "REMOTE_ADDR" };
+            "REMOTE_ADDR"};
 
     public static String getClientIpAddress(HttpServletRequest req) {
         for (String header : IP_HEADER_CANDIDATES) {
