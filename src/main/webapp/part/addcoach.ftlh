@@ -34,5 +34,11 @@
                 </div>
 
         </div>
+        <div class="col-7 infoShareColor white-text">
+            <p>1. first name starting with capital letter, up to 40 chars ("-" inc.)</p>
+            <p>2. last name starting with capital letter, up to 40 chars ("-" inc.)</p>
+            <p>3. email only accept e.g. john@wp.pl</p>
+            <p>4. mobile phone accept 9 digits together only"</p>
+        </div>
     </div>
 </div>
