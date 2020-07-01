@@ -85,10 +85,9 @@ public class SingleViewCoachServlet extends HttpServlet {
             Coach foundCoach = new Coach();
             foundCoach = coachService.findById(coachId);
             if (foundCoach == null) {
-                dataModel.put("errorMessage", "Drink not found.\n");
+                dataModel.put("errorMessage", "Coach not found.\n");
             }
             dataModel.put("coach", foundCoach);
-//            statisticsService.addToStatistics(foundDrinkById);
         }
 
         Template template = templateProvider.getTemplate(getServletContext(), "singleView.ftlh");
