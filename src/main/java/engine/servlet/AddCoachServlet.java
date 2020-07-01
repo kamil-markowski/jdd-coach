@@ -13,7 +13,6 @@ import engine.validator.ValidatorInput;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
-import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -35,6 +34,8 @@ public class AddCoachServlet extends HttpServlet {
     private final static Logger logger = Logger.getLogger(AddCoachServlet.class.getName());
 
     private final static String eventNameString = "coach added";
+
+    private final static String wrongInp = "wrong input, try again";
 
     @Inject
     TemplateProvider templateProvider;
@@ -73,29 +74,29 @@ public class AddCoachServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws IOException, ServletException {
 
-        Integer check = 0;
+        int check = 0;
 
         String firstNameReq = req.getParameter("firstName");
         if (firstNameReq == null || firstNameReq.isEmpty() || !validatorInput.validateSpecialChars(firstNameReq)){
-            firstNameReq = "wrong input, try again";
+            firstNameReq = wrongInp;
             check += 1;
         }
 
         String lastNameReq = req.getParameter("lastName");
         if (lastNameReq == null || lastNameReq.isEmpty() || !validatorInput.validateSpecialChars(lastNameReq)){
-            lastNameReq = "wrong input, try again";
+            lastNameReq = wrongInp;
             check += 1;
         }
 
         String phoneReq = req.getParameter("phone");
         if (phoneReq == null || phoneReq.isEmpty() || !validatorInput.validateMobilePhone(phoneReq)){
-            phoneReq = "wrong input, try again";
+            phoneReq = wrongInp;
             check += 1;
         }
 
         String emailReq = req.getParameter("email");
         if (emailReq == null || emailReq.isEmpty() || !validatorInput.validateEmail(emailReq)){
-            emailReq = "wrong input, try again";
+            emailReq = wrongInp;
             check += 1;
         }
 
@@ -119,13 +120,6 @@ public class AddCoachServlet extends HttpServlet {
             }
 
         }else {
-//            Template template = templateProvider.getTemplate(getServletContext(), "startPage.ftlh");
-//
-//            try {
-//                template.process(dataModel, resp.getWriter());
-//            } catch (TemplateException e) {
-//                logger.warning("Template not created");
-//            }
 
             Coach coach = new Coach();
             coach.setFirstName(req.getParameter("firstName"));
@@ -187,5 +181,4 @@ public class AddCoachServlet extends HttpServlet {
         }
         return req.getRemoteAddr();
     }
-
 }
