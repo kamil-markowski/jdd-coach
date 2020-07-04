@@ -5,11 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.isa</groupId>
-  <artifactId>jjd-coach</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <artifactId>jdd-coach</artifactId>
+  <version>1.0</version>
   <packaging>war</packaging>
 
-  <name>jjd-coach Maven Webapp</name>
+  <name>jdd-coach Maven Webapp</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -65,7 +65,7 @@
   </dependencies>
 
   <build>
-    <finalName>jjd-coach</finalName>
+    <finalName>jdd-coach</finalName>
     <pluginManagement>
       <plugins>
 
@@ -79,6 +79,22 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-jar-plugin</artifactId>
           <version>3.2.0</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-ejb-plugin</artifactId>
+          <version>3.0.0</version>
+          <configuration>
+            <ejbVersion>3.2</ejbVersion>
+            <generateClient>true</generateClient>
+            <clientIncludes>
+              <clientInclude>engine/repository/EventInLogRepositoryRemote.class
+              </clientInclude>
+              <clientInclude>engine/domain
+              </clientInclude>
+            </clientIncludes>
+          </configuration>
         </plugin>
 
       </plugins>
