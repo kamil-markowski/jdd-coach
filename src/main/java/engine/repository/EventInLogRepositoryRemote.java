@@ -9,11 +9,7 @@ import java.util.Optional;
 @Remote
 public interface EventInLogRepositoryRemote {
 
-    void save(EventInLog eventInLog);
-
-//    Optional<EventInLog> findByUserId (Long id);
-
     List<String> getUsersNames();
 
-//    List<EventInLog> findAll();
+    String getEventInLogRecord();
 }

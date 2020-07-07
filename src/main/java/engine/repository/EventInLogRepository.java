@@ -1,6 +1,7 @@
 package engine.repository;
 
 import engine.domain.EventInLog;
+import engine.domain.EventName;
 
 import javax.ejb.Local;
 import java.util.List;
@@ -13,5 +14,9 @@ public interface EventInLogRepository {
 
     Optional<EventInLog> findByUserId (Long id);
 
+    Optional<EventName> findByEventNameId(Long id);
+
     List<EventInLog> findAll();
+
+    public String createEventInLogRecord();
 }
