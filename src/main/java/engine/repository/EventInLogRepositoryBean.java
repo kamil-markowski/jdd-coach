@@ -15,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -64,38 +65,28 @@ public class EventInLogRepositoryBean implements EventInLogRepository,EventInLog
     }
 
     @Override
-    public String createEventInLogRecord() {
+    public String createEventInLogRecord(EventInLog recEventInLog) {
 
-        EventInLog recEventInLog = findAll().get((findAll().size())-1);
+//        EventInLog recEventInLog = findAll().get((findAll().size())-1);
 
         long recId = findAll().stream().map(u -> u.getId().toString()).count();
         String recCoachInfoLink = recEventInLog.getCoachInfoLink();
-        String recEventDate = recEventInLog.getEventDate().toString();
         String recIp = recEventInLog.getIp();
         String recEventName = recEventInLog.getEventName().getNameOfEvent();
+        String recEventDate = recEventInLog.getEventDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
-//        String eventInLogRecord = Long.toString(recId) + " " + recCoachInfoLink + " " + recEventDate + " "
-//                + recIp + " " + recEventName;
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        EventInLog eventInLogForJson = new EventInLog();
-        eventInLogForJson.setId(recId);
-        eventInLogForJson.setCoachInfoLink(recCoachInfoLink);
-        eventInLogForJson.setEventDate(recEventInLog.getEventDate());
-        eventInLogForJson.setIp(recIp);
-
-        String json = "";
-        try {
-            json = objectMapper.writeValueAsString(eventInLogForJson);
-        } catch (JsonProcessingException e) {
-            logger.warning("json not created");
-        }
+        String json ="{" +
+//                "\"id\":\""+recId+ "\"," +
+                "\"coachInfoLink\":\""+recCoachInfoLink+"\","+
+                "\"eventDate\":\""+recEventDate+"\","+
+                "\"eventName\":\""+recEventName+"\","+
+                "\"ip\":\""+recIp+"\"}";
         return json;
     }
 
     @Override
-    public String getEventInLogRecord() {
-        String result = createEventInLogRecord();
+    public String getEventInLogRecord(EventInLog recEventInLog) {
+        String result = createEventInLogRecord(recEventInLog);
         return result;
     }
 }

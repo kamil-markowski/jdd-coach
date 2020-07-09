@@ -11,6 +11,9 @@ import engine.repository.EventInLogRepository;
 import engine.service.CoachService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import org.apache.http.client.fluent.Request;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -93,6 +96,12 @@ public class ListOfCoachesServlet extends HttpServlet {
         eventInLog1.setEventDate(eventTime);
         eventInLog1.setUser(user);
         eventInLogRepository.save(eventInLog1);
+
+        String json = eventInLogRepository.createEventInLogRecord(eventInLog1);
+        String host = "http://127.0.0.1:8080/tracking/rest/add";
+        StringEntity jsonEntity = new StringEntity(json, ContentType.APPLICATION_JSON);
+        Request request = Request.Post(host);
+        request.body(jsonEntity).execute();
     }
 
     public static String[] IP_HEADER_CANDIDATES = {

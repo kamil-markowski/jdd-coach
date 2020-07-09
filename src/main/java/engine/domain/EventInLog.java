@@ -33,18 +33,17 @@ public class EventInLog {
     private EventName eventName;
 
 //    @NotNull
+    @Column(name = "coach_info_link")
     private String coachInfoLink;
 
     @NotNull
+    @Column(name = "event_date")
     private LocalDateTime eventDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
 //    @NotNull
     private User user;
-
-
-
 
 
     public Long getId() {

@@ -12,6 +12,9 @@ import engine.service.CoachService;
 import engine.validator.ValidatorInput;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import org.apache.http.client.fluent.Request;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -169,6 +172,12 @@ public class EditCoachServlet extends HttpServlet {
             eventInLog1.setEventDate(eventTime);
             eventInLog1.setUser(user);
             eventInLogRepository.save(eventInLog1);
+
+            String json = eventInLogRepository.createEventInLogRecord(eventInLog1);
+            String host = "http://127.0.0.1:8080/tracking/rest/add";
+            StringEntity jsonEntity = new StringEntity(json, ContentType.APPLICATION_JSON);
+            Request request = Request.Post(host);
+            request.body(jsonEntity).execute();
 
             resp.sendRedirect("/list-coach");
         }

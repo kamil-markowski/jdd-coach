@@ -11,5 +11,5 @@ public interface EventInLogRepositoryRemote {
 
     List<String> getUsersNames();
 
-    String getEventInLogRecord();
+    String getEventInLogRecord(EventInLog recEventInLog);
 }

@@ -18,5 +18,5 @@ public interface EventInLogRepository {
 
     List<EventInLog> findAll();
 
-    public String createEventInLogRecord();
+    public String createEventInLogRecord(EventInLog recEventInLog);
 }

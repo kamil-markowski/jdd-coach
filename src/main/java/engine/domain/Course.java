@@ -12,13 +12,17 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "course_name")
     private String courseName;
 
+    @Column(name = "course_code")
     private String courseCode;
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "courses")
+    @Column(name = "list_of_coaches")
     private List<Coach> listOfCoaches = new ArrayList<>();
 
+    @Column(name = "code_language")
     private String codeLanguage;
 
     private Long participants;
