@@ -1,0 +1,10 @@
+For remote just for training:
+
+In main app:
+
+1. Maven-> clean package
+
+2. Activate EJB (in app folder)-> mvn ejb:ejb
+
+3. Maven install file (in target folder with jar)->
+mvn install:install-file -Dfile=jdd-coach-client.jar -DgroupId=com.isa -DartifactId=jdd-coach-client -Dpackaging=jar -Dversion=1.0

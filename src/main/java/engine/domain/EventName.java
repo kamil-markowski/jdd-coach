@@ -9,6 +9,10 @@ import java.util.List;
         @NamedQuery(
                 name = "EventName.getByName",
                 query = "SELECT e FROM EventName e where e.nameOfEvent= :name"
+        ),
+        @NamedQuery(
+                name = "EventName.getById",
+                query = "SELECT e FROM EventName e where e.id= :id"
         )
 })
 

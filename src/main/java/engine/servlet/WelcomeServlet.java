@@ -1,16 +1,23 @@
 package engine.servlet;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import engine.domain.EventInLog;
 import engine.domain.EventName;
+import engine.domain.JsonEventToSend;
 import engine.domain.User;
 import engine.freemarker.TemplateProvider;
 import engine.mapper.EventNameMapper;
 import engine.mapper.UserMapper;
 import engine.repository.EventInLogRepository;
+import engine.repository.EventNameRepositoryBean;
 import engine.service.UserService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import org.apache.http.client.fluent.Request;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -88,6 +95,12 @@ public class WelcomeServlet extends HttpServlet {
         } catch (TemplateException e) {
             logger.warning("Template not created");
         }
+
+        String json = eventInLogRepository.createEventInLogRecord(eventInLog1);
+        String host = "http://127.0.0.1:8080/tracking/rest/add";
+        StringEntity jsonEntity = new StringEntity(json, ContentType.APPLICATION_JSON);
+        Request request = Request.Post(host);
+        request.body(jsonEntity).execute();
     }
 
 

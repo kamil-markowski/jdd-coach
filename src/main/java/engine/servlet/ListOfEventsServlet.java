@@ -1,9 +1,7 @@
 package engine.servlet;
 
-import engine.domain.Coach;
-import engine.domain.EventInLog;
-import engine.domain.EventName;
-import engine.domain.User;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import engine.domain.*;
 import engine.freemarker.TemplateProvider;
 import engine.mapper.EventNameMapper;
 import engine.mapper.UserMapper;
@@ -29,12 +27,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-@WebServlet("/list-coach")
-public class ListOfCoachesServlet extends HttpServlet {
+@WebServlet("/list-event")
+public class ListOfEventsServlet extends HttpServlet {
 
-    private final static Logger logger = Logger.getLogger(ListOfCoachesServlet.class.getName());
+    private final static Logger logger = Logger.getLogger(ListOfEventsServlet.class.getName());
 
-    private final static String eventNameString = "open list of coaches page";
+    private final static String eventNameString = "open list of events page";
 
     @Inject
     TemplateProvider templateProvider;
@@ -57,11 +55,20 @@ public class ListOfCoachesServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         Map<String, Object> dataModel = new HashMap<>();
 
+        Request get = Request.Get("http://localhost:8080/tracking/rest/list");
+        String stringJson = get.execute().returnContent().asString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonEventToSend[] jsonEventRecieved = objectMapper.readValue(stringJson,JsonEventToSend[].class);
+        for (JsonEventToSend jsonRec: jsonEventRecieved) {
+            Request getJsonRec = Request.Get("http://localhost:8080/tracking/rest/list");
+        }
+
+
         List<Coach> listOfCoaches = coachService.findAll();
 
-        dataModel.put("list",listOfCoaches);
+        dataModel.put("list",jsonEventRecieved);
 
-        Template template = templateProvider.getTemplate(getServletContext(), "listCoaches.ftlh");
+        Template template = templateProvider.getTemplate(getServletContext(), "listEvents.ftlh");
 
         try {
             template.process(dataModel, resp.getWriter());
@@ -90,7 +97,7 @@ public class ListOfCoachesServlet extends HttpServlet {
 
         EventInLog eventInLog1 = new EventInLog();
         eventInLog1.setCoach(null);
-        eventInLog1.setCoachInfoLink("list of coaches no action on coach done");
+        eventInLog1.setCoachInfoLink("list of events no action on coach done");
         eventInLog1.setIp(ipAddress);
         eventInLog1.setEventName(eventName);
         eventInLog1.setEventDate(eventTime);

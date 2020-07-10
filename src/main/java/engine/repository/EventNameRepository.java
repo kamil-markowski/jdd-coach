@@ -1,6 +1,9 @@
 package engine.repository;
 
+import engine.domain.EventInLog;
 import engine.domain.EventName;
+
+import java.util.Optional;
 
 public interface EventNameRepository {
 
